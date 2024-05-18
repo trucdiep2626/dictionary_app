@@ -31,19 +31,15 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-  json_serializable:
-  json_annotation:
+  json_serializable: 6.8.0
   freezed: 2.5.2
-  shimmer:
-  state_notifier:
-  equatable:
-  flutter_state_notifier:
+
   flutter_riverpod: 2.4.10
+
   hive: 2.2.3
   hive_flutter: 1.1.0
 
@@ -57,8 +53,6 @@ dependencies:
 
   page_transition: 2.1.0
 
-  flutter_slidable: 3.1.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,11 +65,11 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
   build_runner: 2.4.9
+
   hive_generator: 2.0.1
 
-  freezed_annotation: 2.4.1
 
-
+  dependency_validator:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
