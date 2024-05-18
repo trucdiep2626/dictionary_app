@@ -1,0 +1,412 @@
+[
+  {
+    "word": "apple",
+    "definition": "the round fruit of a tree of the rose family, which typically has thin red or green skin and crisp flesh.",
+    "example": "he picked up an apple from the fruit bowl."
+  },
+  {
+    "word": "bear",
+    "definition": "a large, heavy mammal that walks on the soles of its feet, with thick fur and a very short tail.",
+    "example": "a bear cub."
+  },
+  {
+    "word": "cat",
+    "definition": "a small domesticated carnivorous mammal with soft fur, a short snout, and retractile claws.",
+    "example": "a black cat."
+  },
+  {
+    "word": "dog",
+    "definition": "a domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, and a barking, howling, or whining voice.",
+    "example": "a large dog."
+  },
+  {
+    "word": "elephant",
+    "definition": "a very large herbivorous mammal with a long, flexible trunk, having thick skin, large ears, and tusks.",
+    "example": "an elephant calf."
+  },
+  {
+    "word": "fish",
+    "definition": "a limbless cold-blooded vertebrate animal with gills and fins living wholly in water.",
+    "example": "a fish tank."
+  },
+  {
+    "word": "giraffe",
+    "definition": "a large African mammal with a very long neck and forelegs, having a coat patterned with brown patches separated by lighter lines.",
+    "example": "a giraffe's neck."
+  },
+  {
+    "word": "good",
+    "definition": "to be desired or approved of.",
+    "example": "we live at the same address and have the same good name."
+  },
+  {
+    "word": "goodbye",
+    "definition": "used to express good wishes when parting or at the end of a conversation.",
+    "example": "goodbye, my dear."
+  },
+  {
+    "word": "happy",
+    "definition": "feeling or showing pleasure or contentment.",
+    "example": "Melissa came in looking happy and excited."
+  },
+  {
+    "word": "hear",
+    "definition": "perceive with the ear the sound made by (someone or something).",
+    "example": "I could hear footsteps in the hall."
+  },
+  {
+    "word": "hello",
+    "definition": "used as a greeting or to begin a phone conversation.",
+    "example": "hello there, Katie!"
+  },
+  {
+    "word": "love",
+    "definition": "an intense feeling of deep affection.",
+    "example": "babies fill parents with feelings of love."
+  },
+  {
+    "word": "sad",
+    "definition": "feeling or showing sorrow; unhappy.",
+    "example": "I was feeling sad and lonely."
+  },
+  {
+    "word": "see",
+    "definition": "perceive with the eyes; discern visually.",
+    "example": "I can't see a thing without my glasses."
+  },
+  {
+    "word": "smell",
+    "definition": "the faculty or power of perceiving odors or scents by means of the organs in the nose.",
+    "example": "the familiar smell of old leather."
+  },
+  {
+    "word": "taste",
+    "definition": "the sensation of flavor perceived in the mouth and throat on contact with a substance.",
+    "example": "the cheese has a sharp and salty taste."
+  },
+  {
+    "word": "touch",
+    "definition": "come into or be in contact with.",
+    "example": "her hand touched his arm."
+  },
+  {
+    "word": "angry",
+    "definition": "having a strong feeling of or showing annoyance, displeasure, or hostility; full of anger.",
+    "example": "he was angry with his son."
+  },
+  {
+    "word": "big",
+    "definition": "of considerable size or extent.",
+    "example": "big brown eyes."
+  },
+  {
+    "word": "bitter",
+    "definition": "having a sharp, pungent taste or smell; not sweet.",
+    "example": "the beer was dark and bitter."
+  },
+  {
+    "word": "cold",
+    "definition": "of or at a low or relatively low temperature, especially when compared with the human body.",
+    "example": "the water was cold."
+  },
+  {
+    "word": "dark",
+    "definition": "with little or no light.",
+    "example": "it was too dark to see much."
+  },
+  {
+    "word": "hot",
+    "definition": "having a high degree of heat or a high temperature.",
+    "example": "it's too hot to work."
+  },
+  {
+    "word": "loud",
+    "definition": "producing or capable of producing much noise.",
+    "example": "the music was so loud that I had to shout."
+  },
+  {
+    "word": "old",
+    "definition": "having lived for a long time; no longer young.",
+    "example": "she was twelve years old."
+  },
+  {
+    "word": "soft",
+    "definition": "easy to mold, cut, compress, or fold; not hard or firm to the touch.",
+    "example": "the bed was soft."
+  },
+  {
+    "word": "sweet",
+    "definition": "having the pleasant taste characteristic of sugar or honey; not salty, sour, or bitter.",
+    "example": "sweet sherry."
+  },
+  {
+    "word": "beautiful",
+    "definition": "pleasing the senses or mind aesthetically.",
+    "example": "beautiful poetry."
+  },
+  {
+    "word": "clean",
+    "definition": "free from dirt, marks, or stains.",
+    "example": "the room was spotlessly clean."
+  },
+  {
+    "word": "easy",
+    "definition": "achieved without great effort; presenting few difficulties.",
+    "example": "an easy way of retrieving information."
+  },
+  {
+    "word": "expensive",
+    "definition": "costing a lot of money.",
+    "example": "expensive designer clothes."
+  },
+  {
+    "word": "fast",
+    "definition": "moving or capable of moving at high speed.",
+    "example": "a fast car."
+  },
+  {
+    "word": "good",
+    "definition": "to be desired or approved of.",
+    "example": "we live at the same address and have the same good name."
+  },
+  {
+    "word": "hard",
+    "definition": "solid, firm, and resistant to pressure; not easily broken, bent, or pierced.",
+    "example": "a hard mattress."
+  },
+  {
+    "word": "heavy",
+    "definition": "of great weight; difficult to lift or move.",
+    "example": "a heavy bag."
+  },
+  {
+    "word": "important",
+    "definition": "of great significance or value; likely to have a profound effect on success, survival, or well-being.",
+    "example": "important habitats for wildlife."
+  },
+  {
+    "word": "light",
+    "definition": "the natural agent that stimulates sight and makes things visible.",
+    "example": "the light of the sun."
+  },
+  {
+    "word": "long",
+    "definition": "measuring a great distance from end to end.",
+    "example": "a long corridor."
+  },
+  {
+    "word": "new",
+    "definition": "produced, introduced, or discovered recently or now for the first time; not existing before.",
+    "example": "the new German navy."
+  },
+  {
+    "word": "old",
+    "definition": "having lived for a long time; no longer young.",
+    "example": "she was twelve years old."
+  },
+  {
+    "word": "quiet",
+    "definition": "making little or no noise.",
+    "example": "the crowd had grown quiet."
+  },
+  {
+    "word": "right",
+    "definition": "morally good, justified, or acceptable.",
+    "example": "I'm sure you made the right decision."
+  },
+  {
+    "word": "short",
+    "definition": "measuring a small distance from end to end.",
+    "example": "a short walk."
+  },
+  {
+    "word": "slow",
+    "definition": "moving or operating, or designed to do so, only at a low speed; not quick or fast.",
+    "example": "the train was agonizingly slow."
+  },
+  {
+    "word": "small",
+    "definition": "of a size that is less than normal or usual.",
+    "example": "a small car."
+  },
+  {
+    "word": "strong",
+    "definition": "having the power to move heavy weights or perform other physically demanding tasks.",
+    "example": "the horse was strong and fast."
+  },
+  {
+    "word": "tall",
+    "definition": "of great or more than average height, especially (with reference to an object) relative to width.",
+    "example": "a tall, narrow window."
+  },
+  {
+    "word": "weak",
+    "definition": "lacking the power to perform physically demanding tasks; having little physical strength or energy.",
+    "example": "by the time we reached the summit, I was weak with hunger."
+  },
+  {
+    "word": "wet",
+    "definition": "covered or saturated with water or another liquid.",
+    "example": "she slipped on the wet pavement."
+  },
+  {
+    "word": "wrong",
+    "definition": "not correct or true.",
+    "example": "the doctor gave me the wrong advice."
+  },
+  {
+    "word": "young",
+    "definition": "having lived or existed for only a short time.",
+    "example": "he was too young to be left alone."
+  },
+  {
+    "word": "birthday",
+    "definition": "the anniversary of the day on which a person was born, typically treated as an occasion for celebration and the giving of gifts.",
+    "example": "it's my birthday today."
+  },
+  {
+    "word": "Christmas",
+    "definition": "the annual Christian festival celebrating Christ's birth, held on December 25 in the Western Church.",
+    "example": "they'd been invited to a Christmas party."
+  },
+  {
+    "word": "Easter",
+    "definition": "the most important and oldest festival of the Christian Church, celebrating the resurrection of Jesus Christ and held (in the Western Church) between March 21 and April 25, on the first Sunday after the first full moon following the northern spring equinox.",
+    "example": "we always have a big family meal at Easter."
+  },
+  {
+    "word": "Halloween",
+    "definition": "the night of October 31, the eve of All Saints' Day, commonly celebrated by children who dress in costume and solicit candy or other treats door-to-door.",
+    "example": "I'm going to a Halloween party."
+  },
+  {
+    "word": "New Year",
+    "definition": "the calendar year just begun or about to begin.",
+    "example": "we'll be spending New Year in Paris."
+  },
+  {
+    "word": "Thanksgiving",
+    "definition": "the expression of gratitude, especially to God.",
+    "example": "he offered prayers in thanksgiving for his safe arrival."
+  },
+  {
+    "word": "Valentine's Day",
+    "definition": "February 14, a day when it is traditional to send a card, often anonymously, to a person one is romantically involved with or attracted to.",
+    "example": "I got a Valentine's Day card from my boyfriend."
+  },
+  {
+    "word": "anniversary",
+    "definition": "the date on which an event took place in a previous year.",
+    "example": "the 50th anniversary of the start of World War II."
+  },
+  {
+    "word": "picnic",
+    "definition": "an outing or occasion that involves taking a packed meal to be eaten outdoors.",
+    "example": "a picnic in the park."
+  },
+  {
+    "word": "beach",
+    "definition": "a pebbly or sandy shore, especially by the ocean between high- and low-water marks.",
+    "example": "a walk along the beach."
+  },
+  {
+    "word": "camping",
+    "definition": "the activity of spending a vacation living in a camp, tent, or camper.",
+    "example": "we went camping in the forest."
+  },
+  {
+    "word": "cruise",
+    "definition": "a voyage on a ship or boat taken for pleasure or as a vacation and usually calling in at several places.",
+    "example": "a cruise to the Caribbean."
+  },
+  {
+    "word": "hiking",
+    "definition": "the activity of going for long walks, especially in the country or woods.",
+    "example": "a hiking trip."
+  },
+  {
+    "word": "sightseeing",
+    "definition": "the activity of visiting interesting places, especially by tourists.",
+    "example": "sightseeing tours."
+  },
+  {
+    "word": "swimming",
+    "definition": "the sport or activity of propelling oneself through water using the limbs.",
+    "example": "I went swimming in the sea."
+  },
+  {
+    "word": "traveling",
+    "definition": "the action of traveling, typically abroad.",
+    "example": "I love traveling."
+  },
+  {
+    "word": "adventure",
+    "definition": "an unusual and exciting or daring experience.",
+    "example": "her recent adventures in Italy."
+  },
+  {
+    "word": "amusement",
+    "definition": "the state or experience of finding something funny.",
+    "example": "she laughed out loud at the amusement of the situation."
+  },
+  {
+    "word": "entertainment",
+    "definition": "the action of providing or being provided with amusement or enjoyment.",
+    "example": "everyone who attended had a lot of fun and entertainment."
+  },
+  {
+    "word": "excitement",
+    "definition": "a feeling of great enthusiasm and eagerness.",
+    "example": "she squealed with excitement."
+  },
+  {
+    "word": "ceremony",
+    "definition": "a formal religious or public occasion, typically one celebrating a particular event or anniversary.",
+    "example": "the annual awards ceremony."
+  },
+  {
+    "word": "celebration",
+    "definition": "the action of marking one's pleasure at an important event or occasion by engaging in enjoyable, typically social, activity.",
+    "example": "the birth of his son was a cause for celebration."
+  },
+  {
+    "word": "reunion",
+    "definition": "an instance of two or more people coming together again after a period of separation.",
+    "example": "a reunion with his old team."
+  },
+  {
+    "word": "wedding",
+    "definition": "a marriage ceremony, especially considered as including the associated celebrations.",
+    "example": "a wedding invitation."
+  },
+  {
+    "word": "graduation",
+    "definition": "the receiving or conferring of an academic degree or diploma.",
+    "example": "the graduation ceremony."
+  },
+  {
+    "word": "party",
+    "definition": "a social gathering of invited guests, typically involving eating, drinking, and entertainment.",
+    "example": "an engagement party."
+  },
+  {
+    "word": "vacation",
+    "definition": "an extended period of recreation, especially one spent away from home or in traveling.",
+    "example": "he took a vacation in the Caribbean."
+  },
+  {
+    "word": "holiday",
+    "definition": "a day of festivity or recreation when no work is done.",
+    "example": "Christmas is a public holiday."
+  },
+  {
+    "word": "festival",
+    "definition": "a day or period of celebration, typically a religious commemoration.",
+    "example": "the festival of Christmas."
+  },
+  {
+    "word": "parade",
+    "definition": "a public procession, especially one celebrating a special day or event and including marching bands and floats.",
+    "example": "a parade in honor of the holiday."
+  }
+]
