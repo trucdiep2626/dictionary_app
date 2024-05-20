@@ -10,10 +10,11 @@ class DictionaryUseCase {
   DictionaryUseCase({required this.dictionaryRepository});
 
   //load word list from json file
-  Future<Either<Failure, List<WordModel>>> loadWordListFromJsonFile() async {
+  Future<Either<Failure, Map<String, dynamic>>>
+      loadWordListFromJsonFile() async {
     try {
-      final words =
-          await dictionaryRepository.readJsonFile(AppConstants.WORDS_JSON_PATH);
+      final words = await dictionaryRepository
+          .readJsonFile(AppConstants.DICTIONARY_JSON_PATH);
       return Right(words);
     } catch (e) {
       return Left(Failure('Somethings went wrong'));
@@ -49,7 +50,7 @@ class DictionaryUseCase {
   }
 
   //add new word list
-  Future<Either<Failure, bool>> addWordList(List<WordModel> words) async {
+  Future<Either<Failure, bool>> addWordList(Map<String, dynamic> words) async {
     try {
       await dictionaryRepository.addNewWordList(words);
       return const Right(true);
@@ -59,9 +60,15 @@ class DictionaryUseCase {
   }
 
   //update word
-  Future<Either<Failure, bool>> updateWord(WordModel word) async {
+  Future<Either<Failure, bool>> updateWord({
+    required String oldWord,
+    required WordModel newWord,
+  }) async {
     try {
-      await dictionaryRepository.updateWord(word);
+      await dictionaryRepository.updateWord(
+        oldWord: oldWord,
+        newWord: newWord,
+      );
       return const Right(true);
     } catch (e) {
       return Left(Failure('Somethings went wrong'));
@@ -69,7 +76,7 @@ class DictionaryUseCase {
   }
 
   //delete word
-  Future<Either<Failure, bool>> deleteWord(int id) async {
+  Future<Either<Failure, bool>> deleteWord(String id) async {
     try {
       await dictionaryRepository.deleteWord(id);
       return const Right(true);
@@ -89,7 +96,7 @@ class DictionaryUseCase {
   }
 
   //get detail word
-  Future<Either<Failure, WordModel>> getDetailWord(int id) async {
+  Future<Either<Failure, WordModel>> getDetailWord(String id) async {
     try {
       final word = await dictionaryRepository.getDetailWord(id);
       return Right(word);

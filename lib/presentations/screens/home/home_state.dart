@@ -1,3 +1,4 @@
+import 'package:dictionary_app/data/models/searched_keyword_model.dart';
 import 'package:dictionary_app/data/models/word_model.dart';
 
 class HomeState {
@@ -7,14 +8,20 @@ class HomeState {
   final int page;
   final int totalItems;
   final bool enableLoadMore;
+  final List<SearchedKeywordModel>? searchedKeywords;
+  final List<SearchedKeywordModel>? displaySearchedKeywords;
+  final bool showHistory;
 
   HomeState({
-    this.showLoadingIndicator = false,
+    this.showLoadingIndicator = true,
     this.items = const <WordModel>[],
     this.showLoadMoreIndicator = false,
     this.page = 1,
     this.totalItems = 0,
     this.enableLoadMore = true,
+    this.searchedKeywords,
+    this.showHistory = false,
+    this.displaySearchedKeywords,
   });
 
   HomeState copyWith({
@@ -24,6 +31,9 @@ class HomeState {
     int? page,
     int? totalItems,
     bool? enableLoadMore,
+    List<SearchedKeywordModel>? searchedKeywords,
+    bool? showHistory,
+    List<SearchedKeywordModel>? displaySearchedKeywords,
   }) {
     return HomeState(
       showLoadingIndicator: showLoadingIndicator ?? this.showLoadingIndicator,
@@ -33,6 +43,10 @@ class HomeState {
       page: page ?? this.page,
       totalItems: totalItems ?? this.totalItems,
       enableLoadMore: enableLoadMore ?? this.enableLoadMore,
+      searchedKeywords: searchedKeywords ?? this.searchedKeywords,
+      showHistory: showHistory ?? this.showHistory,
+      displaySearchedKeywords:
+          displaySearchedKeywords ?? this.displaySearchedKeywords,
     );
   }
 }

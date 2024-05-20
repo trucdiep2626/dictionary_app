@@ -5,23 +5,27 @@ import 'package:dictionary_app/presentations/theme/theme_text.dart';
 import 'package:dictionary_app/presentations/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 
-Future showAppDialog(BuildContext context, String messageText,
-    {Widget? messageWidget,
-    String? iconPath,
-    bool isIconSvg = false,
-    bool customBody = false,
-    bool checkTimeout = true,
-    Widget? widgetBody,
-    required String confirmButtonText,
-    Color confirmButtonColor = Colors.white,
-    VoidCallback? confirmButtonCallback,
-    String? cancelButtonText,
-    Color cancelButtonColor = Colors.white,
-    VoidCallback? cancelButtonCallback,
-    bool dismissAble = false,
-    WidgetBuilder? builder,
-    bool? delayConfirm,
-    TextAlign? messageTextAlign}) {
+Future showAppDialog(
+  BuildContext context,
+  String messageText, {
+  Widget? messageWidget,
+  String? iconPath,
+  bool isIconSvg = false,
+  bool customBody = false,
+  bool checkTimeout = true,
+  Widget? widgetBody,
+  required String confirmButtonText,
+  Color confirmButtonColor = Colors.white,
+  VoidCallback? confirmButtonCallback,
+  String? cancelButtonText,
+  Color cancelButtonColor = Colors.white,
+  VoidCallback? cancelButtonCallback,
+  bool dismissAble = false,
+  WidgetBuilder? builder,
+  bool? delayConfirm,
+  TextAlign? messageTextAlign,
+  bool showCancelButton = true,
+}) {
   return showDialog(
     context: context,
     barrierDismissible: dismissAble,
@@ -41,6 +45,7 @@ Future showAppDialog(BuildContext context, String messageText,
               cancelButtonText: cancelButtonText,
               cancelButtonCallback: cancelButtonCallback,
               messageTextAlign: TextAlign.start,
+              showCancelButton: showCancelButton,
             ),
   );
 }
@@ -62,26 +67,28 @@ class AppDialog extends StatefulWidget with LayoutExtension {
   final bool? delayConfirm;
   final TextAlign messageTextAlign;
   final bool checkTimeout;
+  final bool showCancelButton;
 
-  const AppDialog(
-      {Key? key,
-      required this.message,
-      this.messageWidget,
-      this.iconPath,
-      this.isIconSvg = false,
-      this.customBody = false,
-      this.dismissAble = false,
-      this.widgetBody,
-      required this.confirmButtonText,
-      required this.confirmButtonColor,
-      this.confirmButtonCallback,
-      this.cancelButtonText,
-      this.cancelButtonColor,
-      this.cancelButtonCallback,
-      required this.messageTextAlign,
-      this.checkTimeout = true,
-      this.delayConfirm = false})
-      : super(key: key);
+  const AppDialog({
+    Key? key,
+    required this.message,
+    this.messageWidget,
+    this.iconPath,
+    this.isIconSvg = false,
+    this.customBody = false,
+    this.dismissAble = false,
+    this.widgetBody,
+    required this.confirmButtonText,
+    required this.confirmButtonColor,
+    this.confirmButtonCallback,
+    this.cancelButtonText,
+    this.cancelButtonColor,
+    this.cancelButtonCallback,
+    required this.messageTextAlign,
+    this.checkTimeout = true,
+    this.delayConfirm = false,
+    this.showCancelButton = true,
+  }) : super(key: key);
 
   @override
   State<AppDialog> createState() => _AppDialogState();
@@ -124,17 +131,18 @@ class _AppDialogState extends State<AppDialog> with LayoutExtension {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Expanded(
-                        child: AppButton(
-                          isOutlineButton: true,
-                          titleFontSize: 14,
-                          title: widget.cancelButtonText ?? 'Cancel',
-                          backgroundColor: Colors.transparent,
-                          onPressed: widget.cancelButtonCallback ??
-                              () => NavigationService.goBack(),
+                      if (widget.showCancelButton)
+                        Expanded(
+                          child: AppButton(
+                            isOutlineButton: true,
+                            titleFontSize: 14,
+                            title: widget.cancelButtonText ?? 'Cancel',
+                            backgroundColor: Colors.transparent,
+                            onPressed: widget.cancelButtonCallback ??
+                                () => NavigationService.goBack(),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
+                      if (widget.showCancelButton) const SizedBox(width: 16),
                       Expanded(
                         child: AppButton(
                           title: widget.confirmButtonText,

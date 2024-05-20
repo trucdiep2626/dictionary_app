@@ -1,5 +1,6 @@
 import 'package:dictionary_app/common/config/route/navigation_service.dart';
 import 'package:dictionary_app/common/config/route/route_generator.dart';
+import 'package:dictionary_app/common/utils/layout_extension.dart';
 import 'package:dictionary_app/presentations/screens/home/components/word_item.dart';
 import 'package:dictionary_app/presentations/theme/theme_color.dart';
 import 'package:dictionary_app/presentations/theme/theme_text.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends ConsumerStatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> with LayoutExtension {
   late ScrollController scrollController;
 
   @override
@@ -49,53 +50,103 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(homeNotifierProvider);
+    final stateNotifier = ref.read(homeNotifierProvider.notifier);
 
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        centerTitle: false,
-        backgroundColor: Colors.blue,
-        title: Text('Home Screen', style: ThemeText.bodyStrong.s20.white),
-        actions: [
-          GestureDetector(
-            onTap: () async {
-              final result =
-                  await NavigationService.routeTo(RouteGenerator.addEditWord);
-              if (result != null && result) {
-                ref.read(homeNotifierProvider.notifier).initData();
-              }
-            },
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.add,
-                color: AppColors.white,
-                size: 30,
+    return GestureDetector(
+      onTap: () {
+        stateNotifier.onChangedShowHistory(false);
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.white,
+        appBar: AppBar(
+          centerTitle: false,
+          backgroundColor: Colors.blue,
+          title: Text(
+            'Home Screen',
+            style: ThemeText.bodyStrong.s20.white,
+          ),
+          actions: [
+            GestureDetector(
+              onTap: () async {
+                stateNotifier.onChangedShowHistory(false);
+                final result =
+                    await NavigationService.routeTo(RouteGenerator.addEditWord);
+                if (result != null && result) {
+                  stateNotifier.initData();
+                }
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.add,
+                  color: AppColors.white,
+                  size: 30,
+                ),
               ),
-            ),
-          )
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: () => ref.read(homeNotifierProvider.notifier).initData(),
-        child: SingleChildScrollView(
-          controller: scrollController,
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                _buildSearchBar(),
-                const SizedBox(height: 16),
-                _buildList(),
-                if (state.showLoadMoreIndicator)
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-              ],
+            )
+          ],
+        ),
+        body: RefreshIndicator(
+          onRefresh: () => stateNotifier.initData(),
+          child: SingleChildScrollView(
+            controller: scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  _buildSearchBar(),
+                  Stack(
+                    children: [
+                      Column(
+                        children: [
+                          const SizedBox(height: 16),
+                          _buildList(),
+                          if (state.showLoadMoreIndicator)
+                            const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                        ],
+                      ),
+                      if (state.showHistory) _buildHistory(),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildHistory() {
+    final state = ref.watch(homeNotifierProvider);
+    final stateNotifier = ref.read(homeNotifierProvider.notifier);
+
+    return Container(
+      height: screenWidth,
+      width: screenWidth,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [AppColors.boxShadow],
+      ),
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return ListTile(
+            onTap: () {
+              stateNotifier.searchWord(
+                  keyword: state.searchedKeywords?[index].word ?? '');
+            },
+            title: Text(
+              state.displaySearchedKeywords?[index].word ?? '',
+              style: ThemeText.bodyMedium,
+            ),
+          );
+        },
+        itemCount: state.displaySearchedKeywords?.length,
+        shrinkWrap: true,
       ),
     );
   }
@@ -117,11 +168,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _buildWordList() {
     final state = ref.watch(homeNotifierProvider);
+    final stateNotifier = ref.read(homeNotifierProvider.notifier);
 
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) => WordItem(
+        searchKey: stateNotifier.searchController.text,
         word: state.items[index],
         onRefresh: () {
           ref.read(homeNotifierProvider.notifier).initData();
@@ -136,9 +189,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final stateNotifier = ref.read(homeNotifierProvider.notifier);
 
     return AppTextField(
-      prefixIcon: const Icon(Icons.search, color: AppColors.grey0_5),
+      onTap: () {
+        stateNotifier.onChangedShowHistory(true);
+      },
+      prefixIcon: const Icon(
+        Icons.search,
+        color: AppColors.grey0_5,
+      ),
       textInputAction: TextInputAction.search,
       hintText: 'Search',
+      onChangedText: (value) => stateNotifier.searchWordWithDebounce(),
       onEditingComplete: () {
         stateNotifier.searchWord();
       },

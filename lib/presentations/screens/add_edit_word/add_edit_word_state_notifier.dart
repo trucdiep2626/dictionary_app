@@ -22,7 +22,6 @@ class AddEditWordStateNotifier extends StateNotifier<AddEditWordState> {
   }) : super(AddEditWordState()) {
     wordController.addListener(checkButtonEnable);
     meaningController.addListener(checkButtonEnable);
-    exampleController.addListener(checkButtonEnable);
   }
 
   final DictionaryUseCase dictionaryUseCase;
@@ -31,18 +30,13 @@ class AddEditWordStateNotifier extends StateNotifier<AddEditWordState> {
 
   final TextEditingController meaningController = TextEditingController();
 
-  final TextEditingController exampleController = TextEditingController();
-
   void onClear() {
     wordController.clear();
     meaningController.clear();
-    exampleController.clear();
   }
 
   void confirmDiscard() {
-    if (wordController.text.isNotEmpty ||
-        meaningController.text.isNotEmpty ||
-        exampleController.text.isNotEmpty) {
+    if (wordController.text.isNotEmpty || meaningController.text.isNotEmpty) {
       showAppDialog(NavigationService.navigatorKey.currentContext!,
           'Do you want to discard the changes?',
           confirmButtonText: 'Discard',
@@ -67,7 +61,6 @@ class AddEditWordStateNotifier extends StateNotifier<AddEditWordState> {
     if (wordModel != null) {
       wordController.text = wordModel.word ?? '';
       meaningController.text = wordModel.definition ?? '';
-      exampleController.text = wordModel.example ?? '';
       state = state.copyWith(oldWord: wordModel);
     }
   }
@@ -77,7 +70,6 @@ class AddEditWordStateNotifier extends StateNotifier<AddEditWordState> {
     final result = await dictionaryUseCase.addWord(WordModel(
       word: wordController.text.trim(),
       definition: meaningController.text.trim(),
-      example: exampleController.text.trim(),
     ));
     result.fold(
       (failure) {
@@ -87,34 +79,7 @@ class AddEditWordStateNotifier extends StateNotifier<AddEditWordState> {
         AppSnackbar.showSnackbar(
           title: 'Successfully added information.',
         );
-       // await Future.delayed(const Duration(seconds: 2));
-        NavigationService.goBack(value: true);
-      },
-    );
-
-    state = state.copyWith(
-      showLoadingIndicator: false,
-    );
-  }
-
-  //update word
-  Future<void> updateWord() async {
-    state = state.copyWith(showLoadingIndicator: true);
-    final result = await dictionaryUseCase.updateWord(WordModel(
-      id: state.oldWord?.id,
-      word: wordController.text.trim(),
-      definition: meaningController.text.trim(),
-      example: exampleController.text.trim(),
-    ));
-    result.fold(
-      (failure) {
-        AppSnackbar.showSnackbar(title: failure.message, isError: true);
-      },
-      (success) async {
-        AppSnackbar.showSnackbar(
-          title: 'Successfully updated information.',
-        );
-        //await Future.delayed(const Duration(seconds: 2));
+        // await Future.delayed(const Duration(seconds: 2));
         NavigationService.goBack(value: true);
       },
     );
@@ -128,11 +93,7 @@ class AddEditWordStateNotifier extends StateNotifier<AddEditWordState> {
   Future<void> onPressedSave(BuildContext context) async {
     hideKeyboard();
     if (state.enableButton) {
-      if (state.oldWord != null) {
-        await updateWord();
-      } else {
-        await checkDuplicate(context);
-      }
+      await checkDuplicate(context);
     }
   }
 
@@ -147,10 +108,9 @@ class AddEditWordStateNotifier extends StateNotifier<AddEditWordState> {
       (success) async {
         if (success) {
           showAppDialog(context, 'This word is already exist.',
-              confirmButtonText: 'Save',
-              cancelButtonText: 'Check Word', confirmButtonCallback: () async {
+              confirmButtonText: 'Check Word',
+              showCancelButton: false, confirmButtonCallback: () async {
             NavigationService.goBack();
-            await addWord();
           });
         } else {
           await addWord();

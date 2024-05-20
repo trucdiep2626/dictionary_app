@@ -6,15 +6,18 @@ abstract class DictionaryRepository {
 
   Future<void> addNewWord(WordModel newWord);
 
-  Future<List<int>> addNewWordList(List<WordModel> list);
+  Future<void> addNewWordList(Map<String, dynamic> list);
 
-  Future<void> updateWord(WordModel word);
+  Future<void> updateWord({
+    required String oldWord,
+    required WordModel newWord,
+  });
 
-  Future<void> deleteWord(int id);
+  Future<void> deleteWord(String id);
 
-  Future<WordModel> getDetailWord(int id);
+  Future<WordModel> getDetailWord(String id);
 
-  Future<List<WordModel>> readJsonFile(String path);
+  Future<Map<String, dynamic>> readJsonFile(String path);
 
   Future<bool> checkDuplicateWord(String word);
 

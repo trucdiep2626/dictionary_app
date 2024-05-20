@@ -1,13 +1,12 @@
 import 'package:dictionary_app/common/config/route/navigation_service.dart';
-import 'package:dictionary_app/common/config/route/route_generator.dart';
-import 'package:dictionary_app/presentations/screens/add_edit_word/add_edit_word_screen.dart';
+import 'package:dictionary_app/presentations/screens/add_edit_word/components/form_widget.dart';
 import 'package:dictionary_app/presentations/screens/word_detail/word_detail_state_notifier.dart';
 import 'package:dictionary_app/presentations/theme/theme_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WordDetailArguments {
-  final int id;
+  final String id;
 
   WordDetailArguments({
     required this.id,
@@ -48,6 +47,17 @@ class _WordDetailScreenState extends ConsumerState<WordDetailScreen> {
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.blue,
           title: const Text(' '),
+          leading: state.isEditing
+              ? IconButton(
+                  onPressed: () => stateNotifier.confirmDiscard(),
+                  icon: const Icon(Icons.clear),
+                )
+              : IconButton(
+                  icon: const Icon(Icons.arrow_back_ios_new),
+                  onPressed: () {
+                    NavigationService.goBack(value: state.shouldRefresh);
+                  },
+                ),
           actions: [
             IconButton(
               onPressed: () async {
@@ -55,18 +65,19 @@ class _WordDetailScreenState extends ConsumerState<WordDetailScreen> {
               },
               icon: const Icon(Icons.delete),
             ),
-            IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: () async {
-                final result = await NavigationService.routeTo(
-                    RouteGenerator.addEditWord,
-                    arguments: AddEditWordArguments(wordModel: state.word));
-                if (result is bool && result) {
-                  await stateNotifier.getDetailWord(state.word?.id ?? 0);
-                  stateNotifier.onChangedShouldRefresh(true);
-                }
-              },
-            ),
+            (state.isEditing)
+                ? IconButton(
+                    icon: const Icon(Icons.check),
+                    onPressed: () async {
+                      await stateNotifier.updateWord();
+                    },
+                  )
+                : IconButton(
+                    icon: const Icon(Icons.edit),
+                    onPressed: () async {
+                      stateNotifier.onChangedIsEditing();
+                    },
+                  ),
           ],
         ),
         body: SingleChildScrollView(
@@ -74,30 +85,38 @@ class _WordDetailScreenState extends ConsumerState<WordDetailScreen> {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        state.word?.word ?? '',
-                        style: ThemeText.bodySemibold.s24,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        state.word?.definition ?? '',
-                        style: ThemeText.bodyMedium.s16,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        state.word?.example ?? '',
-                        style: ThemeText.bodyRegular.italic,
-                      ),
-                    ],
-                  ),
-                ),
+              : _buildBody(),
         ),
       ),
+    );
+  }
+
+  Widget _buildBody() {
+    final state = ref.watch(wordDetailNotifierProvider);
+    final stateNotifier = ref.read(wordDetailNotifierProvider.notifier);
+
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: state.isEditing
+          ? FormWidget(
+              wordController: stateNotifier.wordController,
+              meaningController: stateNotifier.meaningController,
+              onPressedSave: (context) => stateNotifier.updateWord(),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  state.word?.word ?? '',
+                  style: ThemeText.bodySemibold.s24,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  state.word?.definition ?? '',
+                  style: ThemeText.bodyMedium.s16,
+                ),
+              ],
+            ),
     );
   }
 }

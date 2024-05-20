@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dictionary_app/common/config/hive_services.dart';
 import 'package:dictionary_app/data/models/word_model.dart';
 import 'package:dictionary_app/domain/repositories/dictionary_repository.dart';
@@ -12,13 +11,10 @@ class DictionaryRepositoryImpl extends DictionaryRepository {
 
   //read data from json file
   @override
-  Future<List<WordModel>> readJsonFile(String path) async {
+  Future<Map<String, dynamic>> readJsonFile(String path) async {
     final String response = await rootBundle.loadString(path);
     final data = await json.decode(response);
-    if (data is List) {
-      return data.map((e) => WordModel.fromJson(e)).toList();
-    }
-    return [];
+    return data;
   }
 
   Future<void> addWordToHive(String word) async {
@@ -28,7 +24,6 @@ class DictionaryRepositoryImpl extends DictionaryRepository {
   }
 
   // get word list with id
-
   @override
   Future<Map<int, List<WordModel>?>> getWordList({
     String? keyword,
@@ -36,16 +31,14 @@ class DictionaryRepositoryImpl extends DictionaryRepository {
     int size = 10,
   }) async {
     final result = <WordModel>[];
-    final keys = hiveServices.wordsBox.keys.cast<int>();
-    final values = hiveServices.wordsBox.values.cast<WordModel>();
-    final words = <WordModel>[];
-    for (var i = 0; i < keys.length; i++) {
-      WordModel word = WordModel.fromJson(values.elementAt(i).toJson());
-      word = word.copyWith(id: keys.elementAt(i));
-      words.add(word);
-    }
 
-    //   final words = List<WordModel>.from(hiveServices.wordsBox.values.toList());
+    final wordsMap = hiveServices.wordsBox.toMap();
+
+    List<WordModel> words = wordsMap.entries.map((entry) {
+      var key = entry.key;
+      var value = entry.value;
+      return WordModel.fromMap({key: value});
+    }).toList();
 
     words.sort((a, b) =>
         (a.word ?? '').toLowerCase().compareTo((b.word ?? '').toLowerCase()));
@@ -61,36 +54,46 @@ class DictionaryRepositoryImpl extends DictionaryRepository {
   }
 
   @override
-  Future<int> addNewWord(WordModel newWord) async {
-    int id = await hiveServices.wordsBox.add(newWord);
-    return id;
+  Future<void> addNewWord(WordModel newWord) async {
+    await hiveServices.wordsBox
+        .put(newWord.word ?? '', newWord.definition ?? '');
   }
 
   @override
-  Future<List<int>> addNewWordList(List<WordModel> list) async {
-    return (await hiveServices.wordsBox.addAll(list)).toList();
+  Future<void> addNewWordList(Map<String, dynamic> list) async {
+    return (await hiveServices.wordsBox.putAll(list));
   }
 
   @override
-  Future<void> updateWord(WordModel word) async {
-    await hiveServices.wordsBox.put(word.id, word);
+  Future<void> updateWord({
+    required String oldWord,
+    required WordModel newWord,
+  }) async {
+    if (oldWord != newWord.word) {
+      await hiveServices.wordsBox.delete(oldWord);
+    }
+    await hiveServices.wordsBox.put(
+      newWord.word,
+      newWord.definition,
+    );
   }
 
   @override
-  Future<void> deleteWord(int id) async {
+  Future<void> deleteWord(String id) async {
     await hiveServices.wordsBox.delete(id);
   }
 
   @override
-  Future<WordModel> getDetailWord(int id) async {
-    return await hiveServices.wordsBox.get(id);
+  Future<WordModel> getDetailWord(String id) async {
+    final value = await hiveServices.wordsBox.get(id);
+    return WordModel(word: id, definition: value);
   }
 
   //check duplicate
   @override
   Future<bool> checkDuplicateWord(String word) async {
-    final words = List<WordModel>.from(hiveServices.wordsBox.values.toList());
-    return words.any((element) => element.word == word);
+    final words = hiveServices.wordsBox.keys.toList();
+    return words.any((element) => element == word);
   }
 
   //get total word

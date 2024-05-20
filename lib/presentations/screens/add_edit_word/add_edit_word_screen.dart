@@ -1,9 +1,9 @@
 import 'package:dictionary_app/data/models/word_model.dart';
 import 'package:dictionary_app/presentations/screens/add_edit_word/add_edit_word_state_notifier.dart';
+import 'package:dictionary_app/presentations/screens/add_edit_word/components/form_widget.dart';
 import 'package:dictionary_app/presentations/theme/theme_color.dart';
 import 'package:dictionary_app/presentations/theme/theme_text.dart';
 import 'package:dictionary_app/presentations/widgets/app_button.dart';
-import 'package:dictionary_app/presentations/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -70,28 +70,10 @@ class _AddEditWordScreenState extends ConsumerState<AddEditWordScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildTitle('Word'),
-                    AppTextField(
-                      controller: stateNotifier.wordController,
-                      onEditingComplete: () {
-                        FocusScope.of(context).nextFocus();
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTitle('Definition'),
-                    AppTextField(
-                      controller: stateNotifier.meaningController,
-                      onEditingComplete: () {
-                        FocusScope.of(context).nextFocus();
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTitle('Example'),
-                    AppTextField(
-                      controller: stateNotifier.exampleController,
-                      onEditingComplete: () async {
-                        await stateNotifier.onPressedSave(context);
-                      },
+                    FormWidget(
+                      wordController: stateNotifier.wordController,
+                      meaningController: stateNotifier.meaningController,
+                      onPressedSave: stateNotifier.onPressedSave,
                     ),
                     const SizedBox(height: 16),
                     Row(
@@ -130,16 +112,6 @@ class _AddEditWordScreenState extends ConsumerState<AddEditWordScreen> {
               ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 4),
-      child: Text(
-        title,
-        style: ThemeText.bodySemibold,
       ),
     );
   }
